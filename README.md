@@ -21,7 +21,7 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 
 4. Access the ArgoCD API Server using a NodePort service:
 ```
-kubectl apply -f NodePort.yml
+kubectl apply -f service.yml
 ```
 
 5. Install the ArgoCD CLI:
