@@ -59,4 +59,18 @@ argocd app create nginx-demo \
 --dest-namespace argocd
 ```
 
-10. Review your ArgoCD instance and confirm that your application is live.
+10. Confirm that your application is live on ArgoCD
+```bash
+argocd app list
+```
+
+11. Run a sync
+```bash
+argocd app sync nginx-demo
+```
+
+12. Monitor the deployment
+```bash
+argocd app get nginx-demo
+kubectl get po -n argocd
+```
