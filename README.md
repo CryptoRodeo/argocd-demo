@@ -59,7 +59,7 @@ kubectl config view -o jsonpath='{.clusters[?(@.name=="<cluster-name>")].cluster
 kubectl config view -o jsonpath='{.clusters[?(@.name=="minikube")].cluster.server}'
 
 # Microk8s
-kubectl config view -o jsonpath='{.clusters[?(@.name=="microk8s")].cluster.server}'
+kubectl config view -o jsonpath='{.clusters[?(@.name=="microk8s-cluster")].cluster.server}'
 ```
 
 10. Add your application:
