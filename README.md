@@ -1,6 +1,8 @@
 # ArgoCD Demo
 
 ## Setup
+### Minikube
+
 
 1. Create the namespace:
 
@@ -24,13 +26,11 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 kubectl apply -f service.yml
 ```
 
-5. Get the IP for your cluster
+5. Get the service URL
 ```bash
 # For Minikube
-minikube ip
-
-# For Microk8s
-hostname -I | awk '{print $1}'
+# Get the service URL
+ minikube service argocd-server-nodeport -n argocd
 ```
 
 6. Install the ArgoCD CLI:
@@ -43,7 +43,7 @@ rm argocd-linux-amd64
 
 7. Access `<ip>:30080` with username: admin, password: `<see step 3>`:
 ```bash
-argocd login <ip>:30080 --username admin --password <password> --insecure
+argocd login <service-ip>:30080 --username admin --password <password> --insecure
 ```
 
 8. Add your cluster to ArgoCD:
@@ -51,15 +51,9 @@ argocd login <ip>:30080 --username admin --password <password> --insecure
 argocd cluster add <cluster-name, minikube for example>
 ```
 
-9. Get your cluster's server URL:
+9. Get your cluster's server URL and port:
 ```bash
-kubectl config view -o jsonpath='{.clusters[?(@.name=="<cluster-name>")].cluster.server}'
-
-# Minikube:
 kubectl config view -o jsonpath='{.clusters[?(@.name=="minikube")].cluster.server}'
-
-# Microk8s
-kubectl config view -o jsonpath='{.clusters[?(@.name=="microk8s-cluster")].cluster.server}'
 ```
 
 10. Add your application:
@@ -69,7 +63,6 @@ argocd app create nginx-demo \
 --repo https://github.com/cryptorodeo/argocd-demo \
 --path . \
 --dest-server https://<cluster-url> \
---dest-namespace argocd
 ```
 
 11. Confirm that your application is live on ArgoCD
