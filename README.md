@@ -1,5 +1,7 @@
 # ArgoCD Demo
 
+Creates a basic ArgoCD instance for testing
+
 ## Setup
 ### Minikube
 
